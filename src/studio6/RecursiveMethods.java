@@ -29,8 +29,12 @@ public class RecursiveMethods {
 	public static int gcd(int p, int q) {
 		
 			// FIXME compute the gcd of p and q using recursion
-			return 0;
-		
+		if (p % q == 0) {
+			return q;
+		}
+		else {
+			return gcd (q, p % q);
+		}
 	}
 
 	
@@ -41,12 +45,40 @@ public class RecursiveMethods {
 	 * @param array the array to create a reverse of, not to be mutated
 	 * @return an array with the same data as the input but it reverse order
 	 */
-	public static int[] toReversed(int[] array) {
+	public static int[] helperMethod(int[] array, int i, int[] reversedA) {
 		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
+		if (i > array.length/2) {
+			int lastIndex = array.length - 1;
+			int mirrorIndex = lastIndex - i;
+			reversedA[i] = array[mirrorIndex];
+			reversedA[mirrorIndex] = array[i];
+			return helperMethod(array, i--, reversedA);
+		}
 		
+		else {
+			return reversedA;
+		}	
 	}
+	
+	public static int[] nonHelperMethod(int[] array) {
+			return array;
+		}
+	
+	public static int[] toReversed(int[] array) {
+		// FIXME create a helper method that can recursively reverse the given array
+		int[] reversed= new int[array.length];
+		if (array.length == 0) {
+			return nonHelperMethod(array);
+		}
+		else {
+			return helperMethod(array, array.length, reversed);
+		}
+	}
+	
+
+			
+		
+
 
 	/**
 	 * @param xCenter                       x-coordinate of the center of the circle
